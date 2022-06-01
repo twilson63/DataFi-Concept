@@ -1,7 +1,7 @@
 import Arweave from 'arweave'
 import fs from 'fs'
 
-const CONTRACT_SRC = 'hVAGtGBMNcfetP1E9XqboKkWYVqrR0Qp5MsvL3iN23Q'
+const CONTRACT_SRC = 'vjHkpnnhdcC-wliEG-RhYiizUrC3wQJdpuDA2yMrd2w'
 const w = JSON.parse(fs.readFileSync('./wallet.json'))
 
 const arweave = Arweave.init({

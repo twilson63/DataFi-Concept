@@ -3,6 +3,7 @@
 
 <head>
   <title>Mad Science</title>
+  <script src="https://unpkg.com/redstone-smartweave@0.5.8/bundles/web.bundle.js"></script>
 </head>
 
 </html>
@@ -13,7 +14,8 @@
 
 <script type="module">
   import Arweave from 'https://cdn.skypack.dev/arweave';
-  import { SmartWeaveWebFactory } from 'https://cdn.skypack.dev/redstone-smartweave';
+
+  const { SmartWeaveWebFactory } = window.rsdk
 
   const arweave = Arweave.init({
     host: window.location.hostname,
@@ -26,21 +28,20 @@
 
     // find contract id
     const contract = smartweave.contract(getContract())
+      .connect(window.wallet)
     // set input
-    // const input = {
-    //   function: 'hello',
-    //   name: 'Test'
-    // }
-    //await smartweave.interactWrite(arweave, window.wallet, contract, input)
-    //await arweave.api.get('mine')
+    const input = {
+      function: 'hello',
+      name: 'Test'
+    }
+    await contract.writeInteraction(input)
+    await arweave.api.get('mine')
 
-    const results = await smartweave.readState()
-
-
+    const results = await contract.readState()
     console.log(results)
   }
 
-  async function getContract() {
+  function getContract() {
     return window.location.pathname.replace('/', '')
   }
 

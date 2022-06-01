@@ -9,6 +9,6 @@ const arweave = Arweave.init({
 
 const smartweave = sw.SmartWeaveNodeFactory.memCachedBased(arweave).useArweaveGateway().build()
 
-const contract = smartweave.contract('L1Z1XVUTVeLQGpztVZ4sC_G0lgDJTFDb-jwVHc2mH-A')
+const contract = smartweave.contract('xBCtl8df5iBc7txeHDU_rzXE43ha9AtrffLoLIIAR0E')
 
 console.log(await contract.readState())
