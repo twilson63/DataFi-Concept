@@ -1,0 +1,16 @@
+{
+  "name": "DataFi-Concept",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "repository": "https://github.com/twilson63/DataFi-Concept.git",
+  "author": "Tom Wilson <tom@hyper.io>",
+  "license": "MIT",
+  "dependencies": {
+    "arweave": "^1.10.23"
+  },
+  "devDependencies": {
+    "redstone-smartweave": "^0.5.8",
+    "smartweave": "^0.4.48"
+  }
+}
