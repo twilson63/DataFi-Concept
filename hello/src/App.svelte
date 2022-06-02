@@ -1,10 +1,16 @@
 <script>
   import Arweave from "arweave";
-  import { SmartWeaveWebFactory } from "redstone-smartweave/esm";
+  //import { SmartWeaveWebFactory } from "redstone-smartweave/esm";
   import { ArweaveWebWallet } from "arweave-wallet-connector";
 
+  const { SmartWeaveWebFactory } = rsdk;
+
   let count = 0;
-  const arweave = Arweave.init({});
+  const arweave = Arweave.init({
+    host: "arweave.net",
+    port: 443,
+    protocol: "https",
+  });
 
   const wallet = new ArweaveWebWallet({
     name: "Hello",
@@ -14,7 +20,7 @@
   wallet.setUrl("arweave.app");
 
   const smartweave = SmartWeaveWebFactory.memCached(arweave);
-  const contractId = window.location.pathname.replace("/", "");
+  const contractId = window.location.pathname.replace(/\//g, "");
   const contract = smartweave.contract(contractId);
 
   async function getVisits() {
@@ -22,13 +28,22 @@
   }
 
   async function doVisit() {
-    await wallet.connect();
-    contract.connect("use_wallet").bundleInteraction({
+    if (!wallet.connected) {
+      await wallet.connect();
+    }
+    await contract.connect("use_wallet").bundleInteraction({
       function: "visit",
     });
     visits = getVisits();
   }
 
+  function sleep(ms = 1000) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("resolved");
+      }, ms);
+    });
+  }
   let visits = getVisits();
 </script>
 
