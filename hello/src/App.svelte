@@ -4,11 +4,15 @@
   import { ArweaveWebWallet } from "arweave-wallet-connector";
 
   let count = 0;
-  const arweave = Arweave.init({
-    host: "arweave.net",
-    port: 443,
-    protocol: "https",
+  const arweave = Arweave.init({});
+
+  const wallet = new ArweaveWebWallet({
+    name: "Hello",
+    logo: "https://jfbeats.github.io/ArweaveWalletConnector/placeholder.svg",
   });
+
+  wallet.setUrl("arweave.app");
+
   const smartweave = SmartWeaveWebFactory.memCached(arweave);
   const contractId = window.location.pathname.replace("/", "");
   const contract = smartweave.contract(contractId);
@@ -17,21 +21,25 @@
     return contract.readState().then((res) => res.state);
   }
 
-  function doVisit() {
-    contract.writeInteraction({
+  async function doVisit() {
+    await wallet.connect();
+    contract.connect("use_wallet").bundleInteraction({
       function: "visit",
     });
+    visits = getVisits();
   }
+
+  let visits = getVisits();
 </script>
 
 <main class="hero min-h-screen bg-base-200">
   <section class="hero-content text-center">
     <div class="max-w-md space-y-8">
       <h1 class="text-6xl">Hello</h1>
-      {#await getVisits}
+      {#await visits}
         Loading number of visits...
       {:then state}
-        <p>Visits: {count}</p>
+        <p>Visits: {state.count}</p>
       {:catch e}
         <div class="alert-error">{e.message}</div>
       {/await}

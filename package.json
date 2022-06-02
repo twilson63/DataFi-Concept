@@ -7,6 +7,7 @@
   "author": "Tom Wilson <tom@hyper.io>",
   "license": "MIT",
   "dependencies": {
+    "@bundlr-network/client": "^0.7.7",
     "arweave": "^1.10.23"
   },
   "devDependencies": {

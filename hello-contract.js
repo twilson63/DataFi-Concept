@@ -8,6 +8,6 @@ export function handle(state, action) {
 }
 
 function visit(state, action) {
-  state.count = state.count + 1,
+  state.count = state.count + 1;
   return { state }
 }
